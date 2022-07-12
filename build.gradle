@@ -78,8 +78,8 @@ afterEvaluate {
                 from components.release
 
                 groupId = 'com.github.paulsuthan-rtr'
-                artifactId = 'demo-android-lib'
-                version = '0.0.3'
+                artifactId = 'my-lib-sdk'
+                version = '0.0.4'
             }
         }
     }
