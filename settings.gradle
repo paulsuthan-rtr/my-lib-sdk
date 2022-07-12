@@ -1,0 +1,3 @@
+rootProject.name = "Demo Application"
+include ':app'
+include ':my-lib-sdk'
