@@ -1,24 +1,18 @@
 package com.solidfi.mylibrary
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import com.solidfi.mylibrary.ui.theme.DemoApplicationTheme
 
 class ComposeActivity : ComponentActivity() {
@@ -28,7 +22,7 @@ class ComposeActivity : ComponentActivity() {
             DemoApplicationTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-                    Greeting("Android")
+                    Greeting(this@ComposeActivity)
                 }
             }
         }
@@ -36,28 +30,29 @@ class ComposeActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String) {
+fun Greeting(activity: Activity) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            var username by remember { mutableStateOf("") }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.Center),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(text = "Received Auth Token \n" + activity.intent.getStringExtra("AUTH_TOKEN"))
+            var label by remember { mutableStateOf("") }
             TextField(
-                value = username,
-                onValueChange = { username = it },
+                value = label,
+                onValueChange = { label = it },
                 label = { Text("Label") }
             )
-            Button(onClick = {
-
-            }) {
-
+            Button(
+                onClick = {
+                    activity.setResult(Activity.RESULT_OK, Intent().putExtra("RESULT", "Callback received successfully!!!\n Label: $label"))
+                    activity.finish()
+                }
+            ) {
+                Text(text = "Submit")
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    DemoApplicationTheme {
-        Greeting("Android")
     }
 }
