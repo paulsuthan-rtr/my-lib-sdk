@@ -9,7 +9,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        libResult.launch("ejroifndsij cisdhiusdhfsj sidhfpsodhhpoi")
+//        libResult.launch("ejroifndsij cisdhiusdhfsj sidhfpsodhhpoi")
     }
 
     // Custom activity result contract
